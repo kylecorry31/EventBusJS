@@ -1,6 +1,6 @@
 describe("EventBus", function() {
   beforeEach(function() {
-    EventBus.events = {};
+    EventBus.reset();
   });
 
   it("should be able to subscribe and publish", function() {
@@ -106,5 +106,25 @@ describe("EventBus", function() {
 
   it("should not complain if a function unsubscribes that wasn't subscribed", function(){
     expect(function(){ EventBus.unsubscribe("test", function(data){}); } ).not.toThrow();
+  });
+
+  it("should not have events directly accessible", function(){
+    expect(EventBus.events).toBe(undefined);
+  });
+
+  it("should be able to remove all subscribers", function(){
+    var i = 0;
+    var j = 0;
+    EventBus.subscribe("i", function(data){
+      i = data;
+    });
+    EventBus.subscribe("i", function(data){
+      j = data;
+    });
+    EventBus.reset();
+    EventBus.publish("i", 1);
+    EventBus.publish("j", 2);
+    expect(i).toEqual(0);
+    expect(j).toEqual(0);
   });
 });
