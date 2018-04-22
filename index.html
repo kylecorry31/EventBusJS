@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+ <meta charset="UTF-8"> 
+<html>
+<head>
+	<title>EventBus Test</title>
+	<script src="event_bus.js"></script>
+</head>
+<body>
+
+	<label for="test">Type here:</label>
+	<input type="text" name="test" id="test">
+
+	<p id="output"></p>
+
+	<script type="text/javascript">
+		var textField = document.getElementById("test");
+		var output = document.getElementById("output");
+
+		textField.oninput = function(){
+			EventBus.publish("test", textField.value);
+		};
+
+		EventBus.subscribe("test", function(data){
+			output.innerHTML = data;
+		});
+	</script>
+
+</body>
+</html>
