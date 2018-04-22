@@ -23,6 +23,8 @@
 		EventBus.subscribe("test", function(data){
 			output.innerHTML = data;
 		});
+
+		EventBus.subscribe("test", console.log);
 	</script>
 
 </body>
